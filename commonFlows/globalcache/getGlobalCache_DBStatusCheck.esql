@@ -1,0 +1,39 @@
+
+BROKER SCHEMA globalcache
+
+CREATE COMPUTE MODULE getGlobalCache_DBStatusCheck
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DELETE FIELD Environment.Variables.GCSTATUS;
+		DECLARE inputRef REFERENCE TO InputRoot.JSON.Data;
+		--Throw back exception if Mongo doesn't have the config
+		IF inputRef._returned = 0 THEN
+			THROW USER EXCEPTION SEVERITY 3 VALUES('Global Cache','No config found in DB');
+			RETURN FALSE;
+		END IF;
+		
+		IF inputRef._returned = 1 THEN
+			CREATE FIELD OutputRoot.JSON.Data IDENTITY (JSON.Object);
+			DECLARE outputRef REFERENCE TO OutputRoot.JSON.Data;
+			SET outputRef = InputRoot.JSON.Data._embedded.Item[1];
+			CREATE FIRSTCHILD of outputRef NAME 'requestType';
+			SET outputRef.requestType = Environment.Variables.gcKeyName;
+			DELETE FIELD outputRef._id;
+		
+		ELSE 
+			IF inputRef._returned > 1 THEN
+			
+				CREATE FIELD OutputRoot.JSON.Data IDENTITY (JSON.Array);
+				--DECLARE outputRef REFERENCE TO OutputRoot.JSON.Data.*[];
+				SET OutputRoot.JSON.Data.*[] = InputRoot.JSON.Data._embedded.*[];
+				--CREATE FIRSTCHILD of OutputRoot.JSON.Data.*[] NAME 'requestType';
+				--SET OutputRoot.JSON.Data.requestType = Environment.Variables.gcKeyName;
+				--DELETE FIELD outputRef._id;
+		
+			END IF;
+		END IF;
+		
+		PROPAGATE TO TERMINAL 'out';
+		RETURN FALSE;
+	END;
+END MODULE;

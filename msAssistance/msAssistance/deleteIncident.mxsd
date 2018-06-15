@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="deleteIncident">
+    <xsd:sequence>
+      <xsd:element name="caseInfo">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element name="caseId" type="xsd:string"/>
+            <xsd:element name="imsCaseId" type="xsd:string"/>
+            <xsd:element name="serviceProviders">
+              <xsd:complexType>
+                                <xsd:sequence maxOccurs="1" minOccurs="1">
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item">
+                    <xsd:complexType>
+                      <xsd:all maxOccurs="1" minOccurs="1">
+                        <xsd:element name="serviceProviderName" type="xsd:string"/>
+                        <xsd:element name="caseId" type="xsd:string"/>
+                        <xsd:element name="services">
+                          <xsd:complexType>
+                                                        <xsd:sequence maxOccurs="1" minOccurs="1">
+                              <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item">
+                                <xsd:complexType>
+                                  <xsd:all maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="serviceId" type="xsd:string"/>
+                                    <xsd:element name="imsServiceId" type="xsd:string"/>
+                                    <xsd:element name="reference" type="xsd:string"/>
+                                                                        <xsd:element name="cancellationReason" type="xsd:string"/>
+                                                                    </xsd:all>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:all>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="deleteIncident" type="deleteIncident">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/deleteIncident;XSDElementDeclaration$MRObject"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

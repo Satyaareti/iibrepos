@@ -1,0 +1,31 @@
+
+BROKER SCHEMA globalcache
+DECLARE HOST EXTERNAL CHARACTER ' ';
+DECLARE AUTHORIZATION EXTERNAL CHARACTER ' ';
+
+CREATE COMPUTE MODULE getGlobalCache_GCStatusCheck
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
+		IF Environment.Variables.GCSTATUS = 'EMPTY' THEN
+			SET OutputLocalEnvironment.Destination.HTTP.RequestLine.Method = 'GET';
+			--SET OutputLocalEnvironment.Destination.HTTP.RequestURL = HOST ||'/config/esbConfig?filter={''requestType'': '''|| Environment.Variables.gcKeyName ||'''}&keys={'|| DEPLOYMENT_ENVIRONMENT ||':1}';
+			SET OutputLocalEnvironment.Destination.HTTP.RequestURL = HOST ||'/config/esbConfig?filter={''requestType'': '''|| Environment.Variables.gcKeyName ||'''}';
+			SET OutputRoot.HTTPRequestHeader."Authorization" = AUTHORIZATION;
+			SET OutputRoot.HTTPRequestHeader."Content-Type" = 'application/json';			
+			PROPAGATE TO TERMINAL 'out1';
+		ELSE
+			--SET Environment.Variables.DB.ENDPOINT = InputRoot.JSON.Data.{DEPLOYMENT_ENVIRONMENT}.HOST;
+			SET Environment.Variables.DB.ENDPOINT = InputRoot.JSON.Data.HOST;
+			--SET Environment.Variables.DB.AUTHORIZATION =InputRoot.JSON.Data.{DEPLOYMENT_ENVIRONMENT}.authorization;
+			SET Environment.Variables.DB.AUTHORIZATION =InputRoot.JSON.Data.authorization;
+			PROPAGATE TO TERMINAL 'out';
+		END IF;		
+		RETURN FALSE;
+	END;
+	
+	CREATE PROCEDURE CopyJsonTree() BEGIN
+		SET OutputRoot.JSON.Data = InputRoot.JSON.Data;
+	END;
+END MODULE;
+

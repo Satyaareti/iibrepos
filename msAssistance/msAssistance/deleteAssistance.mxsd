@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="dACaseInfoType">
+    <xsd:sequence>
+      <xsd:element name="caseId" type="xsd:string"/>
+            <xsd:element name="serviceProviders" type="dAServiceProvidersType"/>
+        </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="dACaseInfo" type="dACaseInfoType">
+  </xsd:element>
+    <xsd:complexType name="dAServicesType">
+    <xsd:sequence>
+            <xsd:element name="serviceId" type="xsd:string"/>
+            <xsd:element name="imsServiceId" type="xsd:string"/>
+            <xsd:element name="reference" type="xsd:string"/>
+            <xsd:element name="cancellationReason" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:complexType name="dACaseInfo">
+    <xsd:sequence>
+      <xsd:element name="caseInfo" type="dACaseInfoType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:element name="deleteAssistance" type="dACaseInfo">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/deleteAssistance;XSDElementDeclaration=1$MRObject"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+    <xsd:complexType name="dAServiceProvidersType">
+    <xsd:sequence>
+            <xsd:element name="serviceProviderName" type="xsd:string"/>
+            <xsd:element name="caseId" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" name="services" type="dAServicesType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

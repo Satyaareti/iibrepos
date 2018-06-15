@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="complexType">
+    <xsd:sequence>
+      <xsd:element name="policy">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element name="policyNumber" type="xsd:string"/>
+            <xsd:element name="imsId" type="xsd:string"/>
+            <xsd:element name="imscaseId" type="xsd:string"/>
+            <xsd:element name="incidentDate" type="xsd:string"/>
+            <xsd:element name="imsServiceId" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="person">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element maxOccurs="unbounded" name="Item">
+              <xsd:complexType>
+                <xsd:sequence maxOccurs="1" minOccurs="1">
+                  <xsd:element name="firstName" type="xsd:string"/>
+                  <xsd:element name="lastName" type="xsd:string"/>
+                  <xsd:element name="identification">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element name="idNumber" type="xsd:string"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="dateOfBirth" type="xsd:string"/>
+                  <xsd:element name="contactDetail">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element name="contactNumber" type="xsd:string"/>
+                        <xsd:element name="emailAddress" type="xsd:string"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                  <xsd:element name="role" type="xsd:string"/>
+                  <xsd:element name="isPolicyHolder" type="xsd:string"/>
+                  <xsd:element name="isIMSCustomer" type="xsd:string"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="vehicles">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element name="year" type="xsd:string"/>
+            <xsd:element name="make" type="xsd:string"/>
+            <xsd:element name="model" type="xsd:string"/>
+            <xsd:element name="registrationNumber" type="xsd:string"/>
+            <xsd:element name="colour" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+            <xsd:element name="serviceProviders">
+              <xsd:complexType>
+                <xsd:sequence maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="serviceProviderName" type="xsd:string"/>
+                        <xsd:element name="caseId" type="xsd:string"/>
+                        <xsd:element name="caseReference" type="xsd:string"/>
+                        <xsd:element name="services">
+                          <xsd:complexType>
+                            <xsd:sequence maxOccurs="1" minOccurs="1">
+                                                            <xsd:element name="serviceType">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element name="key" type="xsd:string"/>
+                        <xsd:element name="value" type="xsd:string"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                                                            <xsd:element name="serviceSubType">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element name="key" type="xsd:string"/>
+                        <xsd:element name="value" type="xsd:string"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                                                            <xsd:element name="creatorId" type="xsd:string"/>
+                              <xsd:element name="instruction" type="xsd:string"/>
+                              <xsd:element name="isServiceProviderOnScene" type="xsd:string"/>
+                              <xsd:element name="locationDetails">
+                                <xsd:complexType>
+                                  <xsd:sequence maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="requestLocation">
+                                      <xsd:complexType>
+                                        <xsd:sequence maxOccurs="1" minOccurs="1">
+                                          <xsd:element name="extraLocationInformation" type="xsd:string"/>
+                                          <xsd:element name="lat" type="xsd:string"/>
+                                          <xsd:element name="lon" type="xsd:string"/>
+                                        </xsd:sequence>
+                                      </xsd:complexType>
+                                    </xsd:element>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="createService" type="complexType">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/createService;XSDElementDeclaration$MRObject"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

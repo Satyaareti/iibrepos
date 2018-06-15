@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="createIncidentCase.mxsd"/>
+    <xsd:complexType name="caseUpdated">
+        <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRComplexType content="open"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+        <xsd:sequence>
+      <xsd:element name="Id" type="xsd:string"/>
+      <xsd:element name="DateCreated" type="xsd:string"/>
+      <xsd:element name="DateOfIncident" type="xsd:string"/>
+      <xsd:element name="References">
+        <xsd:complexType>
+                    <xsd:sequence maxOccurs="unbounded" minOccurs="1">
+            <xsd:element maxOccurs="unbounded" name="Item" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ExternalReference" type="xsd:string"/>
+      <xsd:element name="CaseClassification">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element name="Key" type="xsd:string"/>
+            <xsd:element name="Value" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="MasterState">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element name="Key" type="xsd:string"/>
+            <xsd:element name="Value" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ContactPerson">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element name="FirstName" type="xsd:string"/>
+            <xsd:element name="Surname" type="xsd:string"/>
+            <xsd:element name="ContactNumber" type="xsd:string"/>
+            <xsd:element name="AlternativeContactNumber" type="xsd:string"/>
+            <xsd:element name="EmailAddress" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Vehicle">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element name="LicensePlateNumber" type="xsd:string"/>
+            <xsd:element name="Make" type="xsd:string"/>
+            <xsd:element name="Description" type="xsd:string"/>
+            <xsd:element name="Vin" type="xsd:string"/>
+            <xsd:element name="Colour" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Policy">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element name="CompanyName" type="xsd:string"/>
+            <xsd:element name="FirstName" type="xsd:string"/>
+            <xsd:element name="Surname" type="xsd:string"/>
+            <xsd:element name="IdentityNumber" type="xsd:string"/>
+            <xsd:element name="DateOfBirth" type="xsd:string"/>
+            <xsd:element name="PolicyNumber" type="xsd:string"/>
+            <xsd:element name="ContactNumber" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Client">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element name="HierarchyDescription" type="xsd:string"/>
+            <xsd:element name="ContactNumber" type="xsd:string"/>
+                        <xsd:element name="Representative" type="Representative"/>
+                    </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CustomerLiaison">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element name="HierarchyDescription" type="xsd:string"/>
+            <xsd:element name="ContactNumber" type="xsd:string"/>
+            <xsd:element name="Representative" type="Representative"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="OperationId" type="xsd:string"/>
+      <xsd:element name="DateOfOperationTrigger" type="xsd:string"/>      
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="updateIncidentCase" type="caseUpdated">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/updateIncidentCase;XSDElementDeclaration$MRObject"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

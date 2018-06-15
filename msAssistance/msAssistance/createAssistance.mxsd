@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="createAssistance">
+    <xsd:sequence>
+            <xsd:element name="serviceProviders">
+              <xsd:complexType>
+                <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element name="serviceProviderName" type="xsd:string"/>
+                        <xsd:element name="caseId" type="xsd:string"/>
+                                    <xsd:element name="caseReference" type="xsd:string"/>
+                                    <xsd:element name="services">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="1" minOccurs="1">
+                                                <xsd:element name="serviceType">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element name="key" type="xsd:string"/>
+                        <xsd:element name="value" type="xsd:string"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                                                <xsd:element name="serviceSubType">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element name="key" type="xsd:string"/>
+                        <xsd:element name="value" type="xsd:string"/>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                        <xsd:element name="creatorId" type="xsd:string"/>
+                        <xsd:element name="instruction" type="xsd:string"/>
+                        <xsd:element name="isServiceProviderOnScene" type="xsd:string"/>
+                        <xsd:element name="locationDetails">
+                          <xsd:complexType>
+                            <xsd:sequence maxOccurs="1" minOccurs="1">
+                              <xsd:element name="requestLocation">
+                                <xsd:complexType>
+                                  <xsd:sequence maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="extraLocationInformation" type="xsd:string"/>
+                                    <xsd:element name="lat" type="xsd:string"/>
+                                    <xsd:element name="lon" type="xsd:string"/>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                                            </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                    </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+      <xsd:element name="policy">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element name="imsId" type="xsd:string"/>
+                        <xsd:element name="imscaseId" type="xsd:string"/>
+                        <xsd:element name="imsServiceId" type="xsd:string"/>
+                    </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="person">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element name="firstName" type="xsd:string"/>
+            <xsd:element name="lastName" type="xsd:string"/>
+            <xsd:element name="contactDetail">
+              <xsd:complexType>
+                <xsd:sequence maxOccurs="1" minOccurs="1">
+                  <xsd:element name="emailAddress" type="xsd:string"/>
+                  <xsd:element name="contactNumber" type="xsd:string"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="createAssistance" type="createAssistance">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/createAssistance;XSDElementDeclaration$MRObject"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+</xsd:schema>

@@ -1,0 +1,35 @@
+
+
+BROKER SCHEMA commonFlows
+
+CREATE COMPUTE MODULE validateHeaders
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE restInputRef REFERENCE TO InputLocalEnvironment.REST.Input;
+		DECLARE headerRef REFERENCE TO restInputRef.Parameters;
+		DECLARE bodyRef REFERENCE TO InputRoot.JSON.Data;
+		IF headerRef.correlationId IS NULL OR headerRef.correlationId = '' OR FIELDNAME(headerRef.correlationId) IS NULL THEN
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Line" = 'HTTP/1.1 400 Bad Request';
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 400;
+			SET OutputRoot.JSON.Data.message = 'correlationId is missing';
+			PROPAGATE TO TERMINAL 'out1' DELETE NONE;
+			RETURN FALSE;
+		ELSEIF (headerRef.referenceNumber ='null' OR headerRef.referenceNumber = '' OR headerRef.referencenumber = 'null' OR headerRef.referencenumber='') THEN
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Line" = 'HTTP/1.1 400 Bad Request';
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 400;
+			SET OutputRoot.JSON.Data.message = 'referenceNumber is missing';
+			PROPAGATE TO TERMINAL 'out1' DELETE NONE;
+			RETURN FALSE;
+		ELSE
+			SET OutputRoot = InputRoot;
+			CREATE FIELD Environment.Variables IDENTITY (JSON.Object);
+			DECLARE envRef REFERENCE TO Environment.Variables;
+			IF FIELDNAME(InputLocalEnvironment.HTTP.Input.QueryString) IS NOT NULL THEN
+				SET envRef.queryParams = InputLocalEnvironment.HTTP.Input.QueryString;
+			END IF;			
+			SET envRef.params = InputLocalEnvironment.REST.Input.Parameters;
+			PROPAGATE TO TERMINAL 'out' DELETE NONE;
+			RETURN FALSE;
+		END IF;
+	END;
+END MODULE;

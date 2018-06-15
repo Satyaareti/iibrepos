@@ -1,0 +1,83 @@
+BROKER SCHEMA common
+
+
+CREATE COMPUTE MODULE httpResponse
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE inputRespHeader REFERENCE TO InputRoot.HTTPResponseHeader;
+		DECLARE envRef REFERENCE TO Environment.Variables;
+		CREATE FIELD OutputRoot.JSON.Data IDENTITY(JSON.Object);
+		DECLARE inputRef REFERENCE TO InputRoot.JSON.Data;
+		DECLARE outRef REFERENCE TO OutputRoot.JSON.Data;
+		DECLARE dtRef REFERENCE TO Environment.InputData.payload.serviceProviders;
+		IF inputRespHeader."X-Original-HTTP-Status-Code" = 200 THEN
+
+			SET outRef.caseInfo.imsId= Environment.Variables.policyDetails.imsId;
+			SET outRef.caseInfo.imscaseId= Environment.Variables.policyDetails.imscaseId;
+			SET outRef.caseInfo.imsServiceId= Environment.Variables.policyDetails.imsServiceId;
+
+			IF Environment.Variables.OPERATION = 'createCase' THEN
+				SET outRef.caseInfo.serviceProviders.serviceProviderName = dtRef.serviceProviderName;
+				SET outRef.caseInfo.serviceProviders.id = inputRef.CaseId;
+				SET outRef.caseInfo.serviceProviders.reference = inputRef.CaseReference;
+
+			ELSEIF Environment.Variables.OPERATION = 'createAssistance' THEN
+				SET outRef.caseInfo.serviceProviders.serviceProviderName = dtRef.serviceProviderName;
+				SET outRef.caseInfo.serviceProviders.id = dtRef.caseId;
+				SET outRef.caseInfo.serviceProviders.caseReference = dtRef.caseReference;
+				SET outRef.caseInfo.serviceProviders.serviceId = inputRef.ServiceId;
+				SET outRef.caseInfo.serviceProviders.reference = inputRef.Reference;				
+			END IF;
+
+
+			If inputRef.WasSuccessful= TRUE THEN
+				SET outRef.caseInfo.serviceProviders.status= 'Success';
+			ELSE
+				SET outRef.caseInfo.serviceProviders.status= 'Failed';
+				SET outRef.error.code= '400';
+				SET outRef.error.message= inputRef.ErrorMessage;
+			END IF;
+			SET Environment.Variables.caseInfo= outRef.caseInfo;
+
+			SET OutputRoot.HTTPResponseHeader."X-publishUTC" = CURRENT_TIMESTAMP;
+			SET OutputRoot.HTTPResponseHeader."X-businessSystem" = SQL.MessageFlowLabel;
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Line" = 'HTTP/1.1 202 Accepted';
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = 202;
+			SET OutputLocalEnvironment.Destination.HTTP.RequestIdentifier = CAST(envRef.messageId AS BLOB);
+
+			PROPAGATE TO TERMINAL 'out' DELETE DEFAULT;
+
+		ELSEIF inputRespHeader."X-Original-HTTP-Status-Code" = 409 OR inputRespHeader."X-Original-HTTP-Status-Code" = 401 THEN
+			SET OutputRoot.HTTPResponseHeader.correlationId = envRef.requestHeader.correlationId;
+			SET OutputRoot.HTTPResponseHeader.publishUTC = CURRENT_TIMESTAMP;
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Line" = inputRespHeader."X-Original-HTTP-Status-Line";
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = inputRespHeader."X-Original-HTTP-Status-Code";
+			SET outRef.ErrorMessage = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID 437 Encoding 546);
+			SET Environment.Variables.gcKeyName = 'AUDITEVENT';
+			SET Environment.Variables.eventState = 'PROCESSED';
+			PROPAGATE TO TERMINAL 'out' DELETE DEFAULT;
+
+		ELSE
+			SET OutputRoot.HTTPResponseHeader.correlationId = envRef.requestHeader.correlationId;
+			SET OutputRoot.HTTPResponseHeader.publishUTC = CURRENT_TIMESTAMP;
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Line" = inputRespHeader."X-Original-HTTP-Status-Line";
+			SET OutputRoot.HTTPResponseHeader."X-Original-HTTP-Status-Code" = inputRespHeader."X-Original-HTTP-Status-Code";
+			SET outRef.ErrorMessage = CAST(InputRoot.BLOB.BLOB AS CHARACTER CCSID 437 Encoding 546);
+			SET Environment.Variables.gcKeyName = 'AUDITEVENT';
+			SET Environment.Variables.eventState = 'PROCESSED';
+			PROPAGATE TO TERMINAL 'out' DELETE DEFAULT;
+
+		END IF;
+
+
+		SET OutputRoot.JSON.Data = Environment.Variables.caseInfo;
+		SET Environment.Variables.gcKeyName = NULL;
+		SET OutputRoot.HTTPInputHeader = InputRoot.HTTPResponseHeader;
+		SET OutputLocalEnvironment.REST.Input.Operation = Environment.Variables.OPERATION;
+		PROPAGATE TO TERMINAL 'out1';
+
+
+		RETURN FALSE;
+		RETURN TRUE;
+	END;
+END MODULE;

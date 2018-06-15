@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="itemServicesType">
+    <xsd:sequence>
+      <xsd:element name="serviceId" type="xsd:string"/>
+      <xsd:element name="imsServiceId" type="xsd:string"/>
+      <xsd:element name="digitalServiceId" type="xsd:string"/>
+      <xsd:element name="reference" type="xsd:string"/>
+      <xsd:element name="status" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="serviceProvidersType">
+    <xsd:sequence>
+            <xsd:element name="serviceProviderName" type="xsd:string"/>
+            <xsd:element name="caseId" type="xsd:string"/>
+            <xsd:element maxOccurs="unbounded" name="services" type="servicesType"/>
+        </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="caseInfoType">
+    <xsd:sequence>
+      <xsd:element name="Id" type="xsd:string"/>
+      <xsd:element name="caseId" type="xsd:string"/>
+      <xsd:element name="digitalCaseId" type="xsd:string"/>
+            <xsd:element name="serviceProviders" type="itemServiceProvidersType"/>
+        </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="caseInfo" type="caseInfoType">
+  </xsd:element>
+    <xsd:complexType name="servicesType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Item" type="itemServicesType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:complexType name="caseInfo">
+    <xsd:sequence>
+      <xsd:element name="caseInfo" type="caseInfoType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:element name="createIncidentNotification" type="caseInfo">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/createIncidentNotification;XSDElementDeclaration=1$MRObject"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+    <xsd:complexType name="itemServiceProvidersType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="Item" type="serviceProvidersType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

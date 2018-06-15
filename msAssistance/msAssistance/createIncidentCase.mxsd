@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:complexType name="caseCreated">
+        <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRComplexType content="open"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+        <xsd:sequence maxOccurs="1" minOccurs="1">
+      <xsd:element minOccurs="0" name="Id" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="DateCreated" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="DateOfIncident" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="References">
+        <xsd:complexType>
+                    <xsd:sequence maxOccurs="unbounded" minOccurs="1">
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ExternalReference" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="CaseClassification">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="Key" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="MasterState">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="Key" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Value" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="ContactPerson">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="FirstName" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Surname" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ContactNumber" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="AlternativeContactNumber" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="EmailAddress" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Vehicle">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="LicensePlateNumber" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Make" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Year" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Model" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="Description" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Vin" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Colour" type="xsd:string"/>
+                    </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Policy">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="CompanyName" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="FirstName" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Surname" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="IdentityNumber" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="DateOfBirth" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="PolicyNumber" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ContactNumber" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="Client">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="HierarchyDescription" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ContactNumber" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Representative" type="Representative"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element minOccurs="0" name="CustomerLiaison">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="HierarchyDescription" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ContactNumber" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="Representative" type="Representative"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+            <xsd:element minOccurs="0" name="medicalAid">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="company" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="plan" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="membershipNumber" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="medicalConditions" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+            <xsd:element minOccurs="0" name="incidentType" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="vehicleIncidentType">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="key" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="value" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+            <xsd:element minOccurs="0" name="vehicleInnerDamage">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="fluidsLeaking" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="bonnetCannotOpen" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="windscreenDamaged" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="wheelObstructed" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="airbagsDeployed" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="suspensionDamaged" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="undercarriageDamaged" type="xsd:boolean"/>
+            <xsd:element minOccurs="0" name="vehicleOverturned" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+            <xsd:element minOccurs="0" name="drivable" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="serviceProviders">
+        <xsd:complexType>
+          <xsd:sequence maxOccurs="1" minOccurs="1">
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item">
+              <xsd:complexType>
+                <xsd:sequence maxOccurs="1" minOccurs="1">
+                  <xsd:element minOccurs="0" name="serviceProviderName" type="xsd:string"/>
+                  <xsd:element minOccurs="0" name="services">
+                    <xsd:complexType>
+                      <xsd:sequence maxOccurs="1" minOccurs="1">
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item">
+                          <xsd:complexType>
+                            <xsd:sequence maxOccurs="1" minOccurs="1">
+                              <xsd:element minOccurs="0" name="serviceId" type="xsd:string"/>
+                              <xsd:element minOccurs="0" name="reference" type="xsd:string"/>
+                              <xsd:element minOccurs="0" name="serviceType">
+                                <xsd:complexType>
+                                  <xsd:sequence maxOccurs="1" minOccurs="1">
+                                    <xsd:element minOccurs="0" name="key" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="value" type="xsd:string"/>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                              <xsd:element minOccurs="0" name="serviceSubType">
+                                <xsd:complexType>
+                                  <xsd:sequence maxOccurs="1" minOccurs="1">
+                                    <xsd:element minOccurs="0" name="key" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="value" type="xsd:string"/>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                              <xsd:element minOccurs="0" name="creatorId" type="xsd:string"/>
+                              <xsd:element minOccurs="0" name="instruction" type="xsd:string"/>
+                              <xsd:element minOccurs="0" name="isServiceProviderOnScene" type="xsd:string"/>
+                              <xsd:element minOccurs="0" name="requestLocation">
+                                <xsd:complexType>
+                                  <xsd:sequence maxOccurs="1" minOccurs="1">
+                                    <xsd:element minOccurs="0" name="latitude" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="longitude" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="address" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="suburb" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="city" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="province" type="xsd:string"/>
+                                    <xsd:element minOccurs="0" name="country" type="xsd:string"/>
+                                  </xsd:sequence>
+                                </xsd:complexType>
+                              </xsd:element>
+                            </xsd:sequence>
+                          </xsd:complexType>
+                        </xsd:element>
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+            <xsd:element minOccurs="1" name="OperationId" type="xsd:string"/>
+      <xsd:element minOccurs="1" name="DateOfOperationTrigger" type="xsd:string"/>      
+        </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="createIncidentCase" type="caseCreated">
+    <xsd:annotation>
+      <xsd:appinfo source="WMQI_APPINFO">
+        <MRMessage messageDefinition="/0/createIncidentCase;XSDElementDeclaration$MRObject"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+  </xsd:element>
+    <xsd:complexType name="Representative">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="FirstName" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="Surname" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="ContactNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="EmailAddress" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:complexType name="policy">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="policyNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="caseId" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="incidentDate" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="dateCreated" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:complexType name="person">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="firstName" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="lastName" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="identification">
+              <xsd:complexType>
+                <xsd:all maxOccurs="1" minOccurs="1">
+                  <xsd:element minOccurs="0" name="idNumber" type="xsd:string"/>
+                </xsd:all>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="dateOfBirth" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="contactDetail">
+              <xsd:complexType>
+                <xsd:all maxOccurs="1" minOccurs="1">
+                  <xsd:element minOccurs="0" name="contactNumber" type="xsd:string"/>
+                  <xsd:element minOccurs="0" name="emailAddress" type="xsd:string"/>
+                </xsd:all>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="role" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="isPolicyHolder" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="isIMSCustomer" type="xsd:string"/>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:complexType name="vehicles">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="year" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="make" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="model" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="registrationNumber" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="colour" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:complexType name="serviceProviders">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item">
+        <xsd:complexType>
+          <xsd:all maxOccurs="1" minOccurs="1">
+            <xsd:element minOccurs="0" name="serviceProviderName" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="services">
+              <xsd:complexType>
+                <xsd:sequence maxOccurs="1" minOccurs="1">
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="Item">
+                    <xsd:complexType>
+                      <xsd:all maxOccurs="1" minOccurs="1">
+                        <xsd:element minOccurs="0" name="serviceType" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="serviceId" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="caseServiceDefinitionId" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="creatorId" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="instruction" type="xsd:string"/>
+                        <xsd:element minOccurs="0" name="isServiceProviderOnScene" type="xsd:boolean"/>
+                                                <xsd:element minOccurs="0" name="requestLocation" type="locationDetails">
+                        </xsd:element>
+                                                <xsd:element minOccurs="0" name="incidentLocation" type="locationDetails"/>
+                                            </xsd:all>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+    <xsd:complexType name="locationDetails">
+    <xsd:sequence>
+      <xsd:element minOccurs="0" name="latitude" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="longitude" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="address" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="suburb" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="city" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="province" type="xsd:string"/>
+      <xsd:element minOccurs="0" name="country" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,27 @@
+BROKER SCHEMA events
+
+
+CREATE COMPUTE MODULE mapPublishEvent
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET OutputRoot = InputRoot;
+		DECLARE outputRef REFERENCE TO OutputRoot.JSON.Data;
+		DECLARE envRequestHeader REFERENCE TO Environment.Variables.requestHeader;
+		SET envRequestHeader.APINAME = Environment.Variables.APINAME;
+		SET envRequestHeader.RESOURCEPATH = Environment.Variables.OPERATION;
+		SET envRequestHeader.OPERATION = Environment.Variables.METHOD;
+		SET outputRef.requestHeader = envRequestHeader;
+		SET outputRef.eventPayload = Environment.Variables.sourceMessage;
+		--Creating environment reference
+		DECLARE envRef REFERENCE TO Environment.Variables;
+		--Creating GC Lookup variables
+		SET envRef.gcKeyName = 'AUDITEVENT';
+		--Assigning event section name
+		SET envRef.processSectionName = envRef.OPERATION;
+		--Assinging state value
+		SET envRef.eventState = 'PUBLISHED';
+		SET outputRef.requestHeader.security.identityToken = envRef.requestHeader.Authorization;
+		SET envRef.requestHeader = OutputRoot.JSON.Data.requestHeader;
+		RETURN TRUE;
+	END;
+END MODULE;
